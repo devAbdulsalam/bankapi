@@ -1,0 +1,4836 @@
+openapi: 3.0.3
+info:
+  title: Jigi pay
+  description: >-
+    # A simple payment app api
+  version: 1.0.0
+  contact: { email: ammuftau74@gmail.com, whatapp: +2340935095173 }
+servers:
+  - url: https://jigipay.onrender.com/api/v1
+    description: This is the original api URL
+    schemes: [https, http]
+  - url: http://localhost:8080/api/v1
+    description: THis is my local Server
+paths:
+  /users/register:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Register user
+      description: >-
+        The API endpoint allows users to register or signup to create their
+        accounts.
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: user.email@domain.com
+                lastName:
+                  type: string
+                  example: user.email@domain.com
+                email:
+                  type: string
+                  example: user.email@domain.com
+                password:
+                  type: string
+                  example: test@123
+            example:
+              firstName: 'john'
+              lastName: doe
+              email: user.email@domain.com
+              password: test@123
+      responses:
+        '201':
+          description: Register user
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '500'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '495'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '772'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 649e795264e7dba29b726935
+                          url:
+                            type: string
+                            example: https://via.placeholder.com/200x200.png
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      firstName:
+                        type: string
+                        example: john
+                      lastName:
+                        type: string
+                        example: doe
+                      phone:
+                        type: string
+                        example: '+23491234567'
+                      isVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.247Z'
+                      username:
+                        type: string
+                        example: doejohn
+                  message:
+                    type: string
+                    example: >-
+                      Users registered successfully and verification email has
+                      been sent on your email.
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Register user:
+                  value:
+                    user:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        publid_id: 649e795264e7dba29b726935
+                        url: https://via.placeholder.com/200x200.png
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      firstame: john
+                      lastName: djohn
+                      phone: '+2345600909'
+                      email: user.email@domain.com
+                      username: doejohn
+                      isVerified: false
+                      loginType: EMAIL_PASSWORD
+                      role: User
+                      updatedAt: '2023-06-30T06:42:26.247Z'
+                    message: >-
+                      Users registered successfully and verification email has
+                      been sent on your email.
+                    success: true
+  /users/login:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Login user
+      description: >-
+        The API endpoint allows users to log into their accounts.
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user.email@domain.com
+                password:
+                  type: string
+                  example: test@123
+            example:
+              email: user.email@domain.com
+              password: test@123
+      responses:
+        '201':
+          description: Login user
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '500'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '495'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '772'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 649e795264e7dba29b726935
+                          url:
+                            type: string
+                            example: https://via.placeholder.com/200x200.png
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      firstName:
+                        type: string
+                        example: john
+                      lastName:
+                        type: string
+                        example: doe
+                      phone:
+                        type: string
+                        example: '+23491234567'
+                      isVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.247Z'
+                      username:
+                        type: string
+                        example: doejohn
+                      accessToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg4MTA3NDY5LCJleHAiOjE2ODgxOTM4Njl9.40qfVrWi8x8fGBRB9JBVCVsdMYvlwzjIRpffz5z7DK4
+                      refreshToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc0NjksImV4cCI6MTY4ODk3MTQ2OX0.7or55Coj0K_UY4YpzYzkNR9hcOIhusxk9FRz7eMV8Ho
+                  message:
+                    type: string
+                    example: >-
+                      User log in successfully.
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Login user:
+                  value:
+                    user:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        publid_id: 649e795264e7dba29b726935
+                        url: https://via.placeholder.com/200x200.png
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      firstame: john
+                      lastName: djohn
+                      phone: '+2345600909'
+                      email: user.email@domain.com
+                      username: doejohn
+                      isVerified: false
+                      loginType: EMAIL_PASSWORD
+                      role: User
+                      accessToken:
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg4MTA3NDY5LCJleHAiOjE2ODgxOTM4Njl9.40qfVrWi8x8fGBRB9JBVCVsdMYvlwzjIRpffz5z7DK4
+                      refreshToken:
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc0NjksImV4cCI6MTY4ODk3MTQ2OX0.7or55Coj0K_UY4YpzYzkNR9hcOIhusxk9FRz7eMV8Ho
+
+                      updatedAt: '2023-06-30T06:42:26.247Z'
+                    message: >-
+                      User log in successfully.
+
+                    success: true
+  /users/current-user:
+    get:
+      tags:
+        - 🔐 Authentication
+      summary: Get logged in user
+      description: >-
+        The API endpoint allows you to retrieve the details of the currently
+        logged-in user based on their authentication token.
+
+
+        When accessing this endpoint with a valid authentication token, you will
+        receive a response containing the information of the user who is
+        currently authenticated and logged in.
+      operationId: getLoggedInUser
+      responses:
+        '200':
+          description: Get logged in user
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 649e795264e7dba29b726935
+                          localPath:
+                            type: string
+                            example: ''
+                          url:
+                            type: string
+                            example: https://via.placeholder.com/200x200.png
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:44:29.831Z'
+                      username:
+                        type: string
+                        example: doejohn
+                  message:
+                    type: string
+                    example: Current user fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get logged in user:
+                  value:
+                    data:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        public_id: 649e795264e7dba29b726935
+                        url: https://via.placeholder.com/200x200.png
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      email: user.email@domain.com
+                      isEmailVerified: false
+                      loginType: EMAIL_PASSWORD
+                      role: ADMIN
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+                      username: doejohn
+                    message: Current user fetched successfully
+
+                    success: true
+  /users/logout:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Logout user
+      description: >-
+        The API endpoint is responsible for logging out users from the
+        application and destroying the access token cookies stored on the
+        client-side.
+
+
+        When accessing this endpoint, it triggers the logout process, revoking
+        the user's authentication and terminating their active session.
+
+
+        Additionally, it ensures that any access token cookies associated with
+        the user's session are removed from the client's browser, effectively
+        logging them out from the application.
+      operationId: logoutUser
+      responses:
+        '200':
+          description: Logout user
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '71'
+            Date:
+              schema:
+                type: string
+                example: Sun, 04 Jun 2023 14:53:17 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"47-As20QlSbGGTq515zdhzWHPjwWhg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;
+                  HttpOnly
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: User logged out
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Logout user:
+                  value:
+                    data: {}
+                    message: User logged out
+
+                    success: true
+  /users/refresh-token:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Refresh token
+      description: >-
+        The Refresh Access Token API is responsible for refreshing the access
+        token when it expires.
+
+
+        It allows you to make a request to this endpoint with the refresh token,
+        which has a lengthy expiry time, to obtain a new access token.
+
+
+        Simultaneously, the API sets the new access token in a cookie for future
+        authentication purposes while replacing the expired one.
+
+
+        This functionality ensures continuous access to protected resources by
+        automatically renewing the access token **without requiring the user to
+        reauthenticate manually**.
+
+
+        By utilizing the refresh token, the API securely refreshes the access
+        token and updates it in the cookie, ensuring seamless and uninterrupted
+        access to authorized endpoints.
+      operationId: refreshToken
+      responses:
+        '200':
+          description: Refresh token
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '556'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 20:00:21 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"22c-gnaKNqPZuv/nGCkHvGfPrASxDPw"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            Set-Cookie:
+              schema:
+                type: string
+                example: >-
+                  refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZTM0ZWJlMWNmYjljYzA4YmQ0NDYiLCJpYXQiOjE2ODU1NjMyMjEsImV4cCI6MTY4NjQyNzIyMX0.TJpj8-2qU__GI_dKDdrHwQvUWCFSFXCfgOuV6MV05UI;
+                  Path=/; HttpOnly
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZTM0ZWJlMWNmYjljYzA4YmQ0NDYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODU1NjMyMjEsImV4cCI6MTY4NTY0OTYyMX0.o6vbC9qrMHV_FfQNFZX3h053eOHvBgbl0iQJSB5NeNc
+                      refreshToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZTM0ZWJlMWNmYjljYzA4YmQ0NDYiLCJpYXQiOjE2ODU1NjMyMjEsImV4cCI6MTY4NjQyNzIyMX0.TJpj8-2qU__GI_dKDdrHwQvUWCFSFXCfgOuV6MV05UI
+                  message:
+                    type: string
+                    example: Access token refreshed
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Refresh token:
+                  value:
+                    data:
+                      accessToken: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZTM0ZWJlMWNmYjljYzA4YmQ0NDYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2ODU1NjMyMjEsImV4cCI6MTY4NTY0OTYyMX0.o6vbC9qrMHV_FfQNFZX3h053eOHvBgbl0iQJSB5NeNc
+                      refreshToken: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDc2ZTM0ZWJlMWNmYjljYzA4YmQ0NDYiLCJpYXQiOjE2ODU1NjMyMjEsImV4cCI6MTY4NjQyNzIyMX0.TJpj8-2qU__GI_dKDdrHwQvUWCFSFXCfgOuV6MV05UI
+                    message: Access token refreshed
+                    success: true
+  /users/assign-role/{userId}:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Assign role
+      description: >-
+        The API endpoint allows administrators to change the roles of users
+        within the system.
+
+
+        This functionality is restricted to users with the `ADMIN` role,
+        ensuring that only authorized personnel can modify user roles.
+
+
+        It provides an essential tool for managing user permissions and ensuring
+        proper authorization levels within the system.
+      operationId: assignRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  example: ADMIN
+            example:
+              role: ADMIN
+      responses:
+        '200':
+          description: Assign role
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '81'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 18:21:25 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"51-BNIeEDSuAnaNdBbrTmV3XGTq/UI"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Role changed for the user
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Assign role:
+                  value:
+                    data: {}
+                    message: Role changed for the user
+                    success: true
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 6489626dc265f0aa2dbb73a4
+  /users/resend-email-verification:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Resend email verification
+      description: >-
+        The API endpoint allows the logged-in user to request a resend of the
+        email verification mail.
+
+
+        By accessing this endpoint, the user can trigger the system to send
+        another email verification link to their registered email address.
+
+
+        This functionality is useful in cases where the initial verification
+        email may have been missed, expired, or encountered delivery issues.
+      operationId: resendEmailVerification
+      responses:
+        '200':
+          description: Resend email verification
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '90'
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Jul 2023 11:21:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"5a-X7vQiakRpbaQ9FVZl382RqNiEXM"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '496'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '256'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Mail has been sent to your mail ID
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Resend email verification:
+                  value:
+                    data: {}
+                    message: Mail has been sent to your mail ID
+                    success: true
+        '409':
+          description: Email already verified
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '308'
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Jul 2023 11:20:26 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"134-2nk8UuSQMCvNMSSCvXDmtH9sxC0"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '499'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '295'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    example: null
+                  errors:
+                    type: array
+                    items: {}
+                    example: []
+                  message:
+                    type: string
+                    example: Email is already verified!
+                  stack:
+                    type: string
+                    example: |-
+                      Error: Email is already verified!
+                  success:
+                    type: boolean
+                    example: false
+              examples:
+                Email already verified:
+                  value:
+                    data: null
+                    errors: []
+                    message: Email is already verified!
+                    stack: |-
+                      Error: Email is already verified!
+                    success: false
+  /users/verify-email/{verificationToken}:
+    get:
+      tags:
+        - 🔐 Authentication
+      summary: Verify user email
+      description: >-
+        The API endpoint is used to verify a user's email by accessing the
+        verification token (**verificationToken**) included in the path
+        variable.
+
+
+        When the user clicks on the email verification link provided to them,
+        this API is invoked to validate their email address.
+
+
+        By including the verification token in the URL path, the endpoint
+        confirms the authenticity of the token and marks the user's email as
+        verified.
+      operationId: verifyUserEmail
+      responses:
+        '200':
+          description: Verify user email
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '95'
+            Date:
+              schema:
+                type: string
+                example: Fri, 02 Jun 2023 06:06:05 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"5f-LuP/p60fMKWCCasH+xNnLel8HrI"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      isEmailVerified:
+                        type: boolean
+                        example: true
+                  message:
+                    type: string
+                    example: Email is verified
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Verify user email:
+                  value:
+                    data:
+                      isEmailVerified: true
+                    message: Email is verified
+                    success: true
+    parameters:
+      - name: verificationToken
+        in: path
+        required: true
+        schema:
+          type: string
+          example: ffff8c2d25725516cf34c8cfa9c5f4d8f1f1f407
+  /users/change-password:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Change current password
+      description: >-
+        The Change Password API allows logged-in users to update their current
+        password by providing the old password as a verification step.
+
+
+        This API provides a secure mechanism for users to change their passwords
+        within the application.
+
+        By accessing this endpoint and providing the old password, users can
+        initiate the password change process and set a new password of their
+        choice.
+
+        >>>>> Remember to swap the values between the oldPassword and newPassword.
+      operationId: changeCurrentPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type: string
+                  example: new@123
+                oldPassword:
+                  type: string
+                  example: test@123
+            example:
+              newPassword: new@123
+              oldPassword: test@123
+      responses:
+        '200':
+          description: Change current password
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Password changed successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Change current password:
+                  value:
+                    data: {}
+                    message: Password changed successfully
+                    success: true
+  /users/forgot-password:
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Forgot password request
+      description: >-
+        The API endpoint allows you to send a forgot password email by providing
+        the user's email ID.
+
+
+        When accessing this endpoint and providing the email ID as a parameter,
+        the API initiates the process of sending a password reset email to the
+        specified email address.
+
+
+        This functionality is useful for implementing password recovery
+        mechanisms within your application, allowing users to reset their
+        passwords securely.
+      operationId: forgotPasswordRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user.email@domain.com
+            example:
+              email: user.email@domain.com
+      responses:
+        '200':
+          description: Forgot password request
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '105'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:56:15 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"69-7OD21C6OqsuAipwphfFVCzbFDQc"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Password reset mail has been sent on your mail id
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Forgot password request:
+                  value:
+                    data: {}
+                    message: Password reset mail has been sent on your mail id
+
+                    success: true
+  /users/verify-token/{resetToken}:
+    get:
+      tags:
+        - 🔐 Authentication
+      summary: veriify  reset password token
+      description: >-
+        The API endpoint enables users to verify reset token
+      operationId: verify reset token
+      responses:
+        '200':
+          description: Verify Reset forgotten password token
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '83'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:56:40 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"53-RWrdVFUHS8Zx4JB6qmRarYVrwKw"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  verified:
+                    type: string
+                    example: true
+                  message:
+                    type: string
+                    example: reset token verified successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                verify token:
+                  value:
+                    verified: true
+                    message: Password reset successfully
+                    success: true
+    post:
+      tags:
+        - 🔐 Authentication
+      summary: Reset forgotten password
+      description: >-
+        The API endpoint enables users to reset their password through the
+        password reset email.
+
+
+        By providing the new password and the password reset token obtained from
+        the URL, users can securely reset their password and regain access to
+        their account.
+
+
+        This functionality ensures a secure and streamlined password reset
+        process, allowing users to update their password conveniently and
+        protect their account from unauthorized access.
+      operationId: resetForgottenPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type: string
+                  example: test@123
+            example:
+              newPassword: test@123
+      responses:
+        '200':
+          description: Reset forgotten password
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '83'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:56:40 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"53-RWrdVFUHS8Zx4JB6qmRarYVrwKw"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Password reset successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Reset forgotten password:
+                  value:
+                    data: {}
+                    message: Password reset successfully
+
+                    success: true
+    parameters:
+      - name: resetToken
+        in: path
+        required: true
+        schema:
+          type: string
+          example: ''
+  /users/avatar:
+    patch:
+      tags:
+        - 🔐 Authentication
+      summary: Update avatar
+      description: >-
+        The API endpoint enables users to update their avatar or profile
+        picture.
+
+
+        By accessing this endpoint and providing the necessary parameters, users
+        can upload a new image file for their desired avatar.
+      operationId: updateAvatar
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  description: File
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Update avatar
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '910'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:45:46 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"38e-+vTTKQiTCppZaCs9tEWJWWsmzZI"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '490'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '572'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          public_id:
+                            type: string
+                            example: 649e7a1a64e7dba29b726965
+                          url:
+                            type: string
+                            example: >-
+                              http://localhost:8080/images/plastic168810754602425641.jpeg
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      emailVerificationExpiry:
+                        type: string
+                        example: '2023-06-30T07:02:26.246Z'
+                      emailVerificationToken:
+                        type: string
+                        example: >-
+                          d2749e5298e1acf73cf09d06477669415503bb81e3c6505eff4560c6522ad263
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      password:
+                        type: string
+                        example: >-
+                          $2b$10$hyujCc82BcVxlKL42YH2N.bES5gr3SbSt1njbzYh1Deim/KI2sx0i
+                      refreshToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc1MjAsImV4cCI6MTY4ODk3MTUyMH0.Y9w5ZbXs8S8n2kuTLBHA5co8ez4KvebyJS2_o-9mxKU
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:45:46.055Z'
+                      username:
+                        type: string
+                        example: doejohn
+                  message:
+                    type: string
+                    example: Avatar updated successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Update avatar:
+                  value:
+                    data:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        public_id: 649e7a1a64e7dba29b726965
+                        url: >-
+                          http://localhost:8080/images/plastic168810754602425641.jpeg
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      email: user.email@domain.com
+                      emailVerificationExpiry: '2023-06-30T07:02:26.246Z'
+                      emailVerificationToken: >-
+                        d2749e5298e1acf73cf09d06477669415503bb81e3c6505eff4560c6522ad263
+                      isEmailVerified: false
+                      loginType: EMAIL_PASSWORD
+                      password: >-
+                        $2b$10$hyujCc82BcVxlKL42YH2N.bES5gr3SbSt1njbzYh1Deim/KI2sx0i
+                      refreshToken: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc1MjAsImV4cCI6MTY4ODk3MTUyMH0.Y9w5ZbXs8S8n2kuTLBHA5co8ez4KvebyJS2_o-9mxKU
+                      role: ADMIN
+                      updatedAt: '2023-06-30T06:45:46.055Z'
+                      username: doejohn
+                    message: Avatar updated successfully
+
+                    success: true
+  /users/profile:
+    patch:
+      tags:
+        - 🔐 Authentication
+      summary: Update user profile
+      description: >-
+        The API endpoint enables users to update their avatar or profile
+        details .
+
+        By accessing this endpoint and providing the necessary parameters, users
+        can upload a new image file for their desired avatar.
+      operationId: updateAvatar
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: file
+          # required: true
+          description: The file to upload.
+        - in: formData
+          name: firstName
+          type: string
+          required: true
+          description: user first name.
+        - in: formData
+          name: lastName
+          type: string
+          required: true
+          description: User last name.
+        - in: formData
+          name: phone
+          type: string
+          required: true
+          description: User phone.
+        - in: formData
+          name: email
+          type: string
+          description: User email.
+      responses:
+        '200':
+          description: Update Profile
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '910'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:45:46 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"38e-+vTTKQiTCppZaCs9tEWJWWsmzZI"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '490'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '572'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          public_id:
+                            type: string
+                            example: 649e7a1a64e7dba29b726965
+                          url:
+                            type: string
+                            example: >-
+                              http://localhost:8080/images/plastic168810754602425641.jpeg
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      emailVerificationExpiry:
+                        type: string
+                        example: '2023-06-30T07:02:26.246Z'
+                      emailVerificationToken:
+                        type: string
+                        example: >-
+                          d2749e5298e1acf73cf09d06477669415503bb81e3c6505eff4560c6522ad263
+                      isEmailVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      password:
+                        type: string
+                        example: >-
+                          $2b$10$hyujCc82BcVxlKL42YH2N.bES5gr3SbSt1njbzYh1Deim/KI2sx0i
+                      refreshToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc1MjAsImV4cCI6MTY4ODk3MTUyMH0.Y9w5ZbXs8S8n2kuTLBHA5co8ez4KvebyJS2_o-9mxKU
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:45:46.055Z'
+                      username:
+                        type: string
+                        example: doejohn
+                  message:
+                    type: string
+                    example: Profile updated successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Update avatar:
+                  value:
+                    data:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        public_id: 649e7a1a64e7dba29b726965
+                        url: >-
+                          http://localhost:8080/images/plastic168810754602425641.jpeg
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      email: user.email@domain.com
+                      emailVerificationExpiry: '2023-06-30T07:02:26.246Z'
+                      emailVerificationToken: >-
+                        d2749e5298e1acf73cf09d06477669415503bb81e3c6505eff4560c6522ad263
+                      isEmailVerified: false
+                      loginType: EMAIL_PASSWORD
+                      password: >-
+                        $2b$10$hyujCc82BcVxlKL42YH2N.bES5gr3SbSt1njbzYh1Deim/KI2sx0i
+                      refreshToken: >-
+                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc1MjAsImV4cCI6MTY4ODk3MTUyMH0.Y9w5ZbXs8S8n2kuTLBHA5co8ez4KvebyJS2_o-9mxKU
+                      role: ADMIN
+                      updatedAt: '2023-06-30T06:45:46.055Z'
+                      username: doejohn
+                    message: Profile updated successfully
+
+                    success: true
+  /client:
+    get:
+      tags:
+        - 📝 Client
+      summary: Returns a user basic dashboard infos, balance, and tranasction.
+      description: client account informations
+      operationId: getAccountInfo
+      responses:
+        '200':
+          description: Get user account info
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      account:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 649e795264e7dba29b726936
+                          userId:
+                            type: string
+                            example: 649e795264e7dba29b726936
+                          balance:
+                            type: number
+                            example: 1222
+                          updatedAt:
+                            type: string
+                            example: '2023-06-30T06:44:29.831Z'
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 649e795264e7dba29b726937
+                            userId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            reciverId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            amount:
+                              type: number
+                              example: 1222
+                            account:
+                              type: number
+                              example: 008080909
+                            accountName:
+                              type: string
+                              example: jamilu bello
+                            bank:
+                              type: string
+                              example: my bank
+                            description:
+                              type: string
+                              example: just for fun
+                            naration:
+                              type: string
+                              example: a simple naration
+                            type:
+                              type: string
+                              example: CREDIT
+                            status:
+                              type: string
+                              example: SUCCESS
+                            updatedAt:
+                              type: string
+                              example: '2023-06-30T06:44:29.831Z'
+              examples:
+                Get account info:
+                  value:
+                    data:
+                      account:
+                        _id: 649e795264e7dba29b726936
+                        userId: 649e795264e7dba29b726936
+                        type: string
+                        example: 649e795264e7dba29b726936
+                        balance: 900
+                        updatedAt: '2023-06-30T06:44:29.831Z'
+                      transactions:
+                        - _id: 649e795264e7dba29b726936
+                          userId: 649e795264e7dba29b726936
+                          amount: 900
+                          account: 900809870
+                          accountName: david grace
+                          bank: first bank
+                          type: CREDIt
+                          status: SUCCESS
+                          descrption: a simple description
+                          naration: a simple naration
+                          updatedAt: '2023-06-30T06:44:29.831Z'
+                        - _id: 649e795264e7dba29b726036
+                          userId: 649e795264e7dba29b96936
+                          recieverId: 649e795264e7dba29b96976
+                          bank: jigipay
+                          amount: 900
+                          accountName: grace abdul
+                          type: DEBIT
+                          status: SUCCESS
+                          descrption: a simple description
+                          naration: a simple naration
+                          updatedAt: '2023-06-30T06:44:29.831Z'
+  /client/balance:
+    get:
+      tags:
+        - 📝 Client
+      summary: Get user balance
+      description: >-
+        The API endpoint allows you to retrieve the balance of your account.
+      operationId: getUserBalance
+      responses:
+        '200':
+          description: Get user balance
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      balance:
+                        type: number
+                        example: 1222
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:44:29.831Z'
+                  message:
+                    type: string
+                    example: Current user fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get user balance:
+                  value:
+                    data:
+                      _id: 649e795264e7dba29b726936
+                      balance: 900
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+  /client/cards:
+    post:
+      tags:
+        - 📝 Client
+      summary: Add card
+      description: >-
+        The Add Card API allows logged-in users to add back card to their account.
+      operationId: addCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: 897jii8u97089e
+                name:
+                  type: string
+                  example: james king
+                number:
+                  type: string
+                  example: 1374455465655
+                expe:
+                  type: string
+                  example: 12/24
+                expire:
+                  type: number
+                  example: 124
+            example:
+              userId: 13744524r5344
+              name: monday david
+              number: 13743432435
+              expire: 12/34
+              cvv: 134
+      responses:
+        '200':
+          description: Add account card
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Card added successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Add account card:
+                  value:
+                    data: {}
+                    message: Card added successfully
+                    success: true
+    get:
+      tags:
+        - 📝 Client
+      summary: Get card
+      description: >-
+        The API endpoint retrieves a list of card.
+      operationId: getCards
+      responses:
+        '200':
+          description: Get cards
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            userId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            number:
+                              type: number
+                              example: 89974059435
+                            cvv:
+                              type: string
+                              example: 649e795264e7dba29b726336
+                            name:
+                              type: string
+                              example: david muda
+                            expire:
+                              type: string
+                              example: 649e795264e7dba29b726336
+                        example:
+                          _id: 68poi09ii99iou8946359
+                          userId: 68poi09ii99iou8946359
+                          cvv: 689
+                          expire: 12/20
+                          number: 08909789789
+                          name: Joseph
+                  message:
+                    type: string
+                    example: Card fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                # edit title
+                Get card:
+                  value:
+                    data:
+                      data:
+                        - userId: 649e795264e7dba29b96936
+                          _id: 649e795264e7dba29b726036
+                          name: jame monday
+                          number: 987948749
+                          cvv: 7897
+                          expire: 12/26
+                        - _id: 649e795264e7dba29b726036
+                          userId: 649e795264e7dba29b96936
+                          name: musa kano
+                          number: 123120
+                          cvv: 274
+                          expire: 03/25
+                    message: Card fetched successfully
+                    success: true
+    delete:
+      tags:
+        - 📝 Client
+      summary: Delete user cards
+      description: >-
+        The API endpoint allows you to delete cards.
+      operationId: deleteCards
+      responses:
+        '200':
+          description: Delete user card by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: cards deleted succefully
+                      status:
+                        type: string
+                        example: success
+  /client/cards/{cardId}:
+    get:
+      tags:
+        - 📝 Client
+      summary: Get user card by id
+      description: >-
+        The API endpoint allows you to retrieve user card by id.
+      operationId: getUserCardById
+      responses:
+        '200':
+          description: Get user card by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+    delete:
+      tags:
+        - 📝 Client
+      summary: Delete user card by id
+      description: >-
+        The API endpoint allows you to delete card by id.
+      operationId: deleteCardById
+      responses:
+        '200':
+          description: Delete user card by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      userId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      number:
+                        type: number
+                        example: 89974059435
+                      cvv:
+                        type: string
+                        example: 649e795264e7dba29b726336
+                      name:
+                        type: string
+                        example: david muda
+                      expire:
+                        type: string
+                        example: 649e795264e7dba29b726336
+                  example:
+                    _id: 68poi09ii99iou8946359
+                    userId: 68poi09ii99iou8946359
+                    cvv: 689
+                    expire: 12/20
+                    number: 08909789789
+                    name: Joseph
+    parameters:
+      - name: cardId
+        in: path
+        # required: true
+        description: The card id.
+        schema:
+          type: string
+  /client/budgets:
+    post:
+      tags:
+        - 📝 Client
+      summary: Add budget
+      description: >-
+        The Add budget API allows logged-in users to add back budget for their account.
+      operationId: addBudget
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Valentine
+                amount:
+                  type: string
+                  example: 137
+                startDate:
+                  type: date
+                  example: 12/24
+                expire:
+                  endDate: date
+                  example: 124
+                type:
+                  type: fun
+                  example: 137
+                cycle:
+                  type: fun
+                  example: 137
+                frequency:
+                  type: fun
+                  example: 137
+            example:
+              name: valentine
+              amount: 200
+              startDate: 1/12/2024
+              endDate: 12/12/2024
+              type: fun
+              frequency: 12/12/2024
+              cycle: 12/12/2024
+      responses:
+        '200':
+          description: Add budget
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: budget added successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Add budget:
+                  value:
+                    data: {}
+                    message: budget added successfully
+                    success: true
+    get:
+      tags:
+        - 📝 Client
+      summary: Get budget
+      description: >-
+        The API endpoint retrieves a list of budget.
+      operationId: getBudgets
+      responses:
+        '200':
+          description: Get budgets
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            userId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            number:
+                              type: number
+                              example: 89974059435
+                            cvv:
+                              type: string
+                              example: 649e795264e7dba29b726336
+                            name:
+                              type: string
+                              example: david muda
+                            expire:
+                              type: string
+                              example: 649e795264e7dba29b726336
+                        example:
+                          _id: 68poi09ii99iou8946359
+                          userId: 68poi09ii99iou8946359
+                          cvv: 689
+                          expire: 12/20
+                          number: 08909789789
+                          name: Joseph
+                  message:
+                    type: string
+                    example: budget fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                # edit title
+                Get card:
+                  value:
+                    data:
+                      data:
+                        - userId: 649e795264e7dba29b96936
+                          _id: 649e795264e7dba29b726036
+                          name: jame monday
+                          number: 987948749
+                          cvv: 7897
+                          expire: 12/26
+                        - _id: 649e795264e7dba29b726036
+                          userId: 649e795264e7dba29b96936
+                          name: musa kano
+                          number: 123120
+                          cvv: 274
+                          expire: 03/25
+                    message: Card fetched successfully
+                    success: true
+  /client/budgets/{budgetId}:
+    get:
+      tags:
+        - 📝 Client
+      summary: Get user budget by id
+      description: >-
+        The API endpoint allows you to retrieve user budget by id.
+      operationId: getUserBudgetById
+      responses:
+        '200':
+          description: Get user budget by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      userId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      number:
+                        type: number
+                        example: 89974059435
+                      cvv:
+                        type: string
+                        example: 649e795264e7dba29b726336
+                      name:
+                        type: string
+                        example: david muda
+                      expire:
+                        type: string
+                        example: 649e795264e7dba29b726336
+                  example:
+                    _id: 68poi09ii99iou8946359
+                    userId: 68poi09ii99iou8946359
+                    cvv: 689
+                    expire: 12/20
+                    number: 08909789789
+                    name: Joseph
+    parameters:
+      - name: budgetId
+        in: path
+        # required: true
+        description: The budget id.
+        schema:
+          type: string
+  /client/change-pin:
+    post:
+      tags:
+        - 📝 Client
+      summary: Change current Pin
+      description: >-
+        The Change Password API allows logged-in users to update their account
+        pin by providing the old pin as a verification step.
+
+
+        This API provides a secure mechanism for users to change their pin
+        within the application.
+
+
+        By accessing this endpoint and providing the old pin, users can
+        initiate the pin change process and set a new acccount pin of their
+        choice.
+      operationId: changeAccountPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type: string
+                  example: 1374
+                oldPassword:
+                  type: string
+                  example: 1234
+            example:
+              newPin: 1374
+              oldPin: 1234
+      responses:
+        '200':
+          description: Change account pin
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+                  message:
+                    type: string
+                    example: Account pin changed successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Change Account pin:
+                  value:
+                    data: {}
+                    message: Account pin changed successfully
+                    success: true
+  /client/transactions:
+    get:
+      tags:
+        - 📝 Client
+      summary: Get user transactions
+      description: >-
+        The API endpoint allows users to retrieve their account transactions.
+      operationId: getUserTransactions
+      responses:
+        '200':
+          description: Get user transactions
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      currentPageItems:
+                        type: number
+                        example: 10
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            __v:
+                              type: number
+                              example: 0
+                            _id:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            userId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            createdAt:
+                              type: string
+                              example: '2023-06-30T06:42:26.163Z'
+                            balance:
+                              type: number
+                              example: 1222
+                            updatedAt:
+                              type: string
+                              example: '2023-06-30T06:44:29.831Z'
+                      limit:
+                        type: number
+                        example: 10
+                      nextPage:
+                        type: boolean
+                        example: true
+                      page:
+                        type: number
+                        example: 1
+                      previousPage:
+                        type: boolean
+                        example: false
+                      totalItems:
+                        type: number
+                        example: 500
+                      totalPages:
+                        type: number
+                        example: 50
+                  message:
+                    type: string
+                    example: User transactions fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get user transaction:
+                  value:
+                    data:
+                      __v: 0
+                      _id: 649e795264e7dba29b726036
+                      userId: 649e795264e7dba29b96936
+                      recieverId: 649e795264e7dba29b96976
+                      bank: jigipay
+                      amount: 900
+                      type: debit
+                      status: success
+                      descrption: a simple description
+                      naration: a simple naration
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+                    message: Current user balance fetched successfully
+                    success: true
+  /client/transactions/{id}:
+    get:
+      tags:
+        - 📝 Client
+      summary: Get user transaction by id
+      description: >-
+        The API endpoint allows you to retrieve user transaction by is.
+      operationId: getUserTransactionById
+      responses:
+        '200':
+          description: Get user transaction by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '443'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1bb-YVaffq7t8o3of0yDl9g26tprr/8"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '493'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '631'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      userId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      receiverId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      bank:
+                        type: string
+                        example: 'name of bank'
+                      account:
+                        type: number
+                        example: 008080909
+                      accountName:
+                        type: string
+                        example: jamilu bello
+                      description:
+                        type: string
+                        example: 'a simple transaction'
+                      naration:
+                        type: string
+                        example: 'a simple naration'
+                      balance:
+                        type: number
+                        example: 1222
+                      amount:
+                        type: number
+                        example: 1222
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      type:
+                        type: string
+                        example: 'CREDIT'
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:44:29.831Z'
+                  message:
+                    type: string
+                    example: Current user fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get user balance:
+                  value:
+                    data:
+                      __v: 0
+                      _id: 649e795264e7dba29b726036
+                      userId: 649e795264e7dba29b96936
+                      recieverId: 649e795264e7dba29b96976
+                      bank: jigipay
+                      amount: 900
+                      accountName: musa isa
+                      balance: 200
+                      type: DEBIT
+                      status: SUCCESS
+                      descrption: a simple description
+                      naration: a simple naration
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+                    message: Transaction fetched successfully
+                    success: true
+    parameters:
+      - name: id
+        in: path
+        # required: true
+        description: The transaction id.
+        schema:
+          type: string
+  /services:
+    get:
+      tags:
+        - 👨‍💼 Services
+      summary: Get services balance
+      description: >-
+        The API endpoint retrieves user service balance.
+      responses:
+        '200':
+          description: Get service balance
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  example: {}
+  /services/cables:
+    get:
+      tags:
+        - 👨‍💼 Services
+      summary: Get cable services
+      description: >-
+        The API endpoint retrieves a list of bill services.
+      responses:
+        '200':
+          description: Get cable service
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  example: {}
+  /services/banks:
+    get:
+      tags:
+        - 👨‍💼 Services
+      summary: Get banks
+      description: >-
+        The API endpoint retrieves a list of bill services.
+      responses:
+        '200':
+          description: Get cable service
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  example: {}
+  /services/networks:
+    get:
+      tags:
+        - 👨‍💼 Services
+      summary: Get net services
+      description: >-
+        The API endpoint retrieves a list of bill services.
+      responses:
+        '200':
+          description: Get cable service
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  example: {}
+  /services/verify-phone:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Verify Phone
+      description: >-
+        Verify phone
+      operationId: verifyPhone
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: '09035095173'
+            example:
+              phone: '09035095173'
+      responses:
+        '200':
+          description: Verify phone
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/buy-airtime:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Buy data
+      description: >-
+        Buy data
+      operationId: buyData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: '09035095173'
+                network:
+                  type: string
+                  example: 1
+                plan:
+                  type: string
+                  example: 500
+            example:
+              phone: '09035095173'
+              network: 1
+              plan: 500
+      responses:
+        '200':
+          description: buy data
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/buy-data:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Buy data
+      description: >-
+        Buy data
+      operationId: buyData
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: '09035095173'
+                network:
+                  type: string
+                  example: 1
+                plan:
+                  type: string
+                  example: 500
+            example:
+              phone: '09035095173'
+              network: 1
+              plan: 500
+      responses:
+        '200':
+          description: buy data
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/purchase-bill:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Purchase bill
+      description: >-
+        Purchase bill
+      operationId: purchase bill
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: '0904509095173'
+                network:
+                  type: string
+                  example: 1
+                plan:
+                  type: string
+                  example: 500
+            example:
+              phone: '09035865173'
+              network: 1
+              plan: 500
+      responses:
+        '200':
+          description: Purchase bill
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/verify-bvn:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Verify BVN
+      description: >-
+        Verify bvn
+      operationId: verifyBvn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  example: new
+                lastname:
+                  type: string
+                  example: test
+                phone:
+                  type: string
+                  example: 99098123
+                bvn:
+                  type: string
+                  example: 878009123
+            example:
+              firstname: abdulsalam
+              lastname: mohammed
+              phone: '09012345789'
+              bvn: '12134244'
+      responses:
+        '200':
+          description: Verify bvn
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/verify-nin:
+    post:
+      tags:
+        - 👨‍💼 Services
+      summary: Verify NIN
+      description: >-
+        Verify nin
+      operationId: verifyNin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstname:
+                  type: string
+                  example: new
+                lastname:
+                  type: string
+                  example: test
+                phone:
+                  type: string
+                  example: 99098123
+                nin:
+                  type: string
+                  example: 878009123
+            example:
+              firstname: abdulsalam
+              lastname: mohammed
+              phone: '09005909513'
+              nin: '37604587858'
+      responses:
+        '200':
+          description: Verify nin
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '85'
+            Date:
+              schema:
+                type: string
+                example: Wed, 31 May 2023 19:59:47 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"55-CyGJCaxqcCXrzMloar9z7m95mvk"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties: {}
+  /services/bettings:
+    get:
+      tags:
+        - 👨‍💼 Services
+      summary: Get betting services
+      description: >-
+        The API endpoint retrieves a list of bill services.
+      responses:
+      '200':
+        description: Get cable service
+        headers:
+          Access-Control-Allow-Credentials:
+            schema:
+              type: string
+              example: 'true'
+          Access-Control-Allow-Origin:
+            schema:
+              type: string
+              example: '*'
+          Connection:
+            schema:
+              type: string
+              example: keep-alive
+          Content-Length:
+            schema:
+              type: string
+              example: '10757'
+          Date:
+            schema:
+              type: string
+              example: Thu, 01 Jun 2023 05:44:13 GMT
+          ETag:
+            schema:
+              type: string
+              example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+          Keep-Alive:
+            schema:
+              type: string
+              example: timeout=5
+          X-Powered-By:
+            schema:
+              type: string
+              example: Express
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                example: {}
+  /admins/login:
+    post:
+      tags:
+        - 👨‍💼 Admin
+      summary: Admin user
+      description: >-
+        The API endpoint allows admins to log into their accounts.
+      operationId: loginAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: admin.email@domain.com
+                password:
+                  type: string
+                  example: test@123
+            example:
+              email: admin.email@domain.com
+              password: test@123
+      responses:
+        '201':
+          description: Login admin
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '500'
+            Date:
+              schema:
+                type: string
+                example: Fri, 30 Jun 2023 06:44:09 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            RateLimit-Limit:
+              schema:
+                type: string
+                example: '500'
+            RateLimit-Remaining:
+              schema:
+                type: string
+                example: '495'
+            RateLimit-Reset:
+              schema:
+                type: string
+                example: '772'
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      __v:
+                        type: number
+                        example: 0
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      avatar:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 649e795264e7dba29b726935
+                          url:
+                            type: string
+                            example: https://via.placeholder.com/200x200.png
+                      createdAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.163Z'
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      firstName:
+                        type: string
+                        example: john
+                      lastName:
+                        type: string
+                        example: doe
+                      phone:
+                        type: string
+                        example: '+23491234567'
+                      isVerified:
+                        type: boolean
+                        example: false
+                      loginType:
+                        type: string
+                        example: EMAIL_PASSWORD
+                      role:
+                        type: string
+                        example: ADMIN
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:42:26.247Z'
+                      username:
+                        type: string
+                        example: doejohn
+                      accessToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg4MTA3NDY5LCJleHAiOjE2ODgxOTM4Njl9.40qfVrWi8x8fGBRB9JBVCVsdMYvlwzjIRpffz5z7DK4
+                      refreshToken:
+                        type: string
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc0NjksImV4cCI6MTY4ODk3MTQ2OX0.7or55Coj0K_UY4YpzYzkNR9hcOIhusxk9FRz7eMV8Ho
+                  message:
+                    type: string
+                    example: >-
+                      User log in successfully.
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Login admin:
+                  value:
+                    user:
+                      __v: 0
+                      _id: 649e795264e7dba29b726936
+                      avatar:
+                        publid_id: 649e795264e7dba29b726935
+                        url: https://via.placeholder.com/200x200.png
+                      createdAt: '2023-06-30T06:42:26.163Z'
+                      firstame: john
+                      lastName: djohn
+                      phone: '+2345600909'
+                      email: user.email@domain.com
+                      username: doejohn
+                      isVerified: false
+                      loginType: EMAIL_PASSWORD
+                      role: User
+                      accessToken:
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJlbWFpbCI6IndhamUuc2h1YmhhbTExMUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IndhamVzaHViaGFtIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjg4MTA3NDY5LCJleHAiOjE2ODgxOTM4Njl9.40qfVrWi8x8fGBRB9JBVCVsdMYvlwzjIRpffz5z7DK4
+                      refreshToken:
+                        example: >-
+                          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDllNzk1MjY0ZTdkYmEyOWI3MjY5MzYiLCJpYXQiOjE2ODgxMDc0NjksImV4cCI6MTY4ODk3MTQ2OX0.7or55Coj0K_UY4YpzYzkNR9hcOIhusxk9FRz7eMV8Ho
+
+                      updatedAt: '2023-06-30T06:42:26.247Z'
+                    message: >-
+                      User log in successfully.
+
+                    success: true
+  /admins:
+    get:
+      tags:
+        - 👨‍💼 Admin
+
+      summary: Get admins
+      description: >-
+        The API endpoint retrieves a list of admins. When accessing this
+        endpoint, you will receive a response containing list of app users.
+
+        It provides a convenient way to obtain admins information for
+        various purposes within your application.
+      operationId: getUsers
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: Get admins
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      currentPageItems:
+                        type: number
+                        example: 10
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            email:
+                              type: string
+                              example: joseph.evans@example.com
+                            gender:
+                              type: string
+                              example: male
+                            _id:
+                              type: number
+                              example: 1
+                            firstName:
+                              type: string
+                              example: Joseph
+                            lastName:
+                              type: string
+                              example: Evans
+                            phone:
+                              type: string
+                              example: (612)-327-2806
+                            avatar:
+                              type: object
+                              properties:
+                                public_id:
+                                  type: string
+                                  example: 98789j-98078998678u
+                                url:
+                                  type: string
+                                  example: >-
+                                    https://randomuser.me/api/portraits/med/men/65.jpg
+                        example:
+                          email: joseph.evans@example.com
+                          gender: male
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: User
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                      limit:
+                        type: number
+                        example: 10
+                      nextPage:
+                        type: boolean
+                        example: true
+                      page:
+                        type: number
+                        example: 1
+                      previousPage:
+                        type: boolean
+                        example: false
+                      totalItems:
+                        type: number
+                        example: 500
+                      totalPages:
+                        type: number
+                        example: 50
+                  message:
+                    type: string
+                    example: Admins fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get admins:
+                  value:
+                    data:
+                      currentPageItems: 10
+                      data:
+                        - email: joseph.evans@example.com
+                          gender: male
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: ADMIN
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                        - email: john.evans@example.com
+                          gender: female
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: ADMIN
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                      limit: 10
+                      nextPage: true
+                      page: 1
+                      previousPage: false
+                      totalItems: 500
+                      totalPages: 50
+                    message: Admins fetched successfully
+                    success: true
+  /admins/users:
+    get:
+      tags:
+        - 👨‍💼 Admin
+
+      summary: Get users
+      description: >-
+        The API endpoint retrieves a list of users. When accessing this
+        endpoint, you will receive a response containing list of app users.
+
+        It provides a convenient way to obtain user information for
+        various purposes within your application.
+      operationId: getUsers
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: Get users
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      currentPageItems:
+                        type: number
+                        example: 10
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            email:
+                              type: string
+                              example: joseph.evans@example.com
+                            gender:
+                              type: string
+                              example: male
+                            _id:
+                              type: number
+                              example: 1
+                            firstName:
+                              type: string
+                              example: Joseph
+                            lastName:
+                              type: string
+                              example: Evans
+                            phone:
+                              type: string
+                              example: (612)-327-2806
+                            avatar:
+                              type: object
+                              properties:
+                                public_id:
+                                  type: string
+                                  example: 98789j-98078998678u
+                                url:
+                                  type: string
+                                  example: >-
+                                    https://randomuser.me/api/portraits/med/men/65.jpg
+                        example:
+                          - email: joseph.evans@example.com
+                            gender: male
+                            _id: 08909789789
+                            firstName: Joseph
+                            username: Joseph
+                            lastName: Evans
+                            role: User
+                            phone: (612)-327-2806
+                            avatar:
+                              public_id: 097897986ij0i
+                              url: >-
+                                https://randomuser.me/api/portraits/med/men/65.jpg
+                          - email: joseph.evans@example.com
+                            gender: male
+                            _id: 08909789789
+                            firstName: Joseph
+                            username: Joseph
+                            lastName: Evans
+                            role: User
+                            phone: (612)-327-2806
+                            avatar:
+                              public_id: 097897986ij0i
+                              url: >-
+                                https://randomuser.me/api/portraits/med/men/65.jpg
+                      limit:
+                        type: number
+                        example: 10
+                      nextPage:
+                        type: boolean
+                        example: true
+                      page:
+                        type: number
+                        example: 1
+                      previousPage:
+                        type: boolean
+                        example: false
+                      totalItems:
+                        type: number
+                        example: 500
+                      totalPages:
+                        type: number
+                        example: 50
+                  message:
+                    type: string
+                    example: Users fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get users:
+                  value:
+                    data:
+                      currentPageItems: 10
+                      data:
+                        - email: joseph.evans@example.com
+                          gender: male
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: User
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                        - email: john.evans@example.com
+                          gender: female
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: User
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                      limit: 10
+                      nextPage: true
+                      page: 1
+                      previousPage: false
+                      totalItems: 500
+                      totalPages: 50
+                    message: user fetched successfully
+                    success: true
+  /admins/users/{userId}:
+    get:
+      tags:
+        - 👨‍💼 Admin
+      summary: Get user by id
+      description: >-
+        The API endpoint retrieves all infomation of a user based on the specified ID.
+        When accessing this endpoint and providing a valid user ID as a
+        parameter, you will receive a response containing the details of the
+        user matching the provided ID.
+      operationId: getUserById
+      responses:
+        '200':
+          description: Get user by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '1126'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:27 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"466-tNv1SNtB6cuxJH2yZW7lrDnlA34"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: joseph.evans@example.com
+                      gender:
+                        type: string
+                        example: male
+                      _id:
+                        type: number
+                        example: 1
+                      firstName:
+                        type: string
+                        example: Joseph
+                      lastName:
+                        type: string
+                        example: Evans
+                      phone:
+                        type: string
+                        example: (612)-327-2806
+                      avatar:
+                        type: object
+                        properties:
+                          public_id:
+                            type: string
+                            example: 98789j-98078998678u
+                          url:
+                            type: string
+                            example: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                  message:
+                    type: string
+                    example: User fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get user by id:
+                  value:
+                    data:
+                      email: joseph.evans@example.com
+                      gender: male
+                      _id: 08909789789
+                      firstName: Joseph
+                      username: Joseph
+                      lastName: Evans
+                      role: User
+                      phone: (612)-327-2806
+                      avatar:
+                        public_id: 097897986ij0i
+                        url: >-
+                          https://randomuser.me/api/portraits/med/men/65.jpg
+                    message: User fetched successfully
+                    success: true
+    patch:
+      tags:
+        - 👨‍💼 Admin
+      summary: update user by id
+      description: >-
+        The API endpoint user infomation based on the specified ID.
+        When accessing this endpoint and providing a valid user ID as a
+        parameter, you will receive a response containing the details of the
+        user matching the provided ID.
+      operationId: updateUserId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: admin
+                lastName:
+                  type: string
+                  example: doe
+            example:
+              firstName: admin
+              lastName: doe
+      responses:
+        '200':
+          description: update user by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '1126'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:27 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"466-tNv1SNtB6cuxJH2yZW7lrDnlA34"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      firstName:
+                        type: string
+                        example: admin
+                  message:
+                    type: string
+                    example: User updated successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Update user by id:
+                  value:
+                    data:
+                      firstName: 'admin'
+                    message: User updated successfully
+                    success: true
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        description: The user id.
+        schema:
+          type: string
+  /admins/transactions:
+    get:
+      tags:
+        - 👨‍💼 Admin
+      summary: Get transactions
+      description: >-
+        The API endpoint retrieves a list of transactions. When accessing this
+        endpoint, you will receive a response containing list of users transactions.
+
+        It provides a convenient way to obtain user transaction information for
+        various purposes within your application.
+      operationId: getTransactions
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+            example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: string
+            example: '10'
+      responses:
+        '200':
+          description: Get transactions
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '10757'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:13 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"2a05-xjkqHU4sNAeFPZX9uGNel7XPn8E"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      currentPageItems:
+                        type: number
+                        example: 10
+                        # edit data
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            userId:
+                              type: string
+                              example: 649e795264e7dba29b726936
+                            receiverId:
+                              type: string
+                              example: 649e795264e7dba29b726336
+                            bank:
+                              type: string
+                              example: 'name of bank'
+                            account:
+                              type: number
+                              example: 008080909
+                            accountName:
+                              type: string
+                              example: jamilu bello
+                            description:
+                              type: string
+                              example: 'a simple transaction'
+                            naration:
+                              type: string
+                              example: 'a simple naration'
+                            balance:
+                              type: number
+                              example: 1222
+                            amount:
+                              type: number
+                              example: 1222
+                            status:
+                              type: string
+                              example: 'SUCCESS'
+                            type:
+                              type: string
+                              example: 'CREDIT'
+                            updatedAt:
+                              type: string
+                              example: '2023-06-30T06:44:29.831Z'
+
+                        example:
+                          email: joseph.evans@example.com
+                          gender: male
+                          _id: 08909789789
+                          firstName: Joseph
+                          username: Joseph
+                          lastName: Evans
+                          role: User
+                          phone: (612)-327-2806
+                          avatar:
+                            public_id: 097897986ij0i
+                            url: >-
+                              https://randomuser.me/api/portraits/med/men/65.jpg
+                      limit:
+                        type: number
+                        example: 10
+                      nextPage:
+                        type: boolean
+                        example: true
+                      page:
+                        type: number
+                        example: 1
+                      previousPage:
+                        type: boolean
+                        example: false
+                      totalItems:
+                        type: number
+                        example: 500
+                      totalPages:
+                        type: number
+                        example: 50
+                  message:
+                    type: string
+                    example: Transactions fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                # edit title
+                Get transactions:
+                  value:
+                    data:
+                      currentPageItems: 10
+                      # edit data
+                      data:
+                        - userId: 649e795264e7dba29b96936
+                          _id: 649e795264e7dba29b726036
+                          recieverId: 649e795264e7dba29b96976
+                          bank: jigipay
+                          amount: 900
+                          type: DEBIT
+                          status: SUCCESS
+                          descrption: a simple description
+                          naration: a simple naration
+                          updatedAt: '2023-06-30T06:44:29.831Z'
+                        - _id: 649e795264e7dba29b726036
+                          userId: 649e795264e7dba29b96936
+                          accountName: musa kano
+                          bank: first bank
+                          amount: 900
+                          balance: 120
+                          type: DEBIT
+                          status: SUCCESS
+                          descrption: a simple description
+                          naration: a simple naration
+                          updatedAt: '2023-06-30T06:44:29.831Z'
+                      limit: 10
+                      nextPage: true
+                      page: 1
+                      previousPage: false
+                      totalItems: 500
+                      totalPages: 50
+                    message: user fetched successfully
+                    success: true
+  /admins/transactions/{transactionId}:
+    get:
+      tags:
+        - 👨‍💼 Admin
+      summary: Get Transactions by id
+      description: >-
+        The API endpoint retrieves all infomation of a user based on the specified ID.
+        When accessing this endpoint and providing a valid user ID as a
+        parameter, you will receive a response containing the details of the
+        user matching the provided ID.
+      operationId: getTransactionById
+      responses:
+        '200':
+          description: Get transaction by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '1126'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:27 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"466-tNv1SNtB6cuxJH2yZW7lrDnlA34"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # edit data
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      userId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      receiverId:
+                        type: string
+                        example: 649e795264e7dba29b726936
+                      bank:
+                        type: string
+                        example: 'name of bank'
+                      account:
+                        type: string
+                        example: 'jamilu tunday'
+                      description:
+                        type: string
+                        example: 'a simple transaction'
+                      naration:
+                        type: string
+                        example: 'a simple naration'
+                      balance:
+                        type: number
+                        example: 1222
+                      amount:
+                        type: number
+                        example: 1222
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      type:
+                        type: string
+                        example: 'CREDIT'
+                      updatedAt:
+                        type: string
+                        example: '2023-06-30T06:44:29.831Z'
+                  message:
+                    type: string
+                    example: Transaction fetched successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Get user by id:
+                  value:
+                    # edit data
+                    data:
+                      _id: 649e795264e7dba29b726036
+                      userId: 649e795264e7dba29b96936
+                      account: 09809909
+                      accountName: jamilu yaro
+                      bank: zenith bank
+                      amount: 900
+                      type: DEBIT
+                      status: SUCCESS
+                      descrption: a simple description
+                      naration: a simple naration
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+                    message: Transaction fetched successfully
+                    success: true
+    patch:
+      tags:
+        - 👨‍💼 Admin
+      summary: update transaction by id
+      description: >-
+        The API endpoint retrieves all infomation of a user based on the specified ID.
+        When accessing this endpoint and providing a valid user ID as a
+        parameter, you will receive a response containing the details of the
+        user matching the provided ID.
+      operationId: updateTransactionId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: SUCCESS
+            example:
+              status: SUCCESS
+      responses:
+        '200':
+          description: update user transaction by id
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: string
+                example: 'true'
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: '1126'
+            Date:
+              schema:
+                type: string
+                example: Thu, 01 Jun 2023 05:44:27 GMT
+            ETag:
+              schema:
+                type: string
+                example: W/"466-tNv1SNtB6cuxJH2yZW7lrDnlA34"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # edit data
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: joseph.evans@example.com
+                      gender:
+                        type: string
+                        example: male
+                  message:
+                    type: string
+                    example: Transactions updated successfully
+                  success:
+                    type: boolean
+                    example: true
+              examples:
+                Update transaction by id:
+                  value:
+                    # edit data
+                    data:
+                      _id: 649e795264e7dba29b726036
+                      userId: 649e795264e7dba29b96936
+                      amount: 900
+                      balance: 900
+                      type: DEBIT
+                      status: SUCCESS
+                      descrption: a simple description
+                      naration: a simple naration
+                      updatedAt: '2023-06-30T06:44:29.831Z'
+                    message: Transaction updated successfully
+                    success: true
+    parameters:
+      - name: transactionId
+        in: path
+        required: true
+        description: The transaction id.
+        schema:
+          type: string
+  tags:
+    - name: 🔐 Authentication
+      description: >-
+        This section encompasses all the APIs related to user authentication.
+    - name: 📝 Client
+      description: >-
+        This section encompasses all other APIs related to user or client.
+    - name: 👨‍💼 Admin
+      description: >-
+        This section encompasses all other APIs related to admin and app management.
+    - name: 👨‍💼 Services
+      description: >-
+        This section encompasses all other APIs related to payment, airtime, data, etc.
