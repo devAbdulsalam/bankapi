@@ -2,28 +2,18 @@ import { body } from 'express-validator';
 import { AvailableUserRoles } from '../constants.js';
 
 const userRegisterValidator = [
-	body('email')
+	body('phone')
 		.trim()
 		.notEmpty()
-		.withMessage('Email is required')
-		.isEmail()
-		.withMessage('Email is invalid'),
-	body('firstName')
+		.withMessage('Phone is required'),
+	body('fullname')
 		.trim()
 		.notEmpty()
-		.withMessage('FirstName is required')
+		.withMessage('Fullname is required')
 		.isLowercase()
-		.withMessage('FirstName must be lowercase')
+		.withMessage('Fullname must be lowercase')
 		.isLength({ min: 3 })
-		.withMessage('FirstName must be at lease 3 characters long'),
-	body('lastName')
-		.trim()
-		.notEmpty()
-		.withMessage('LastName is required')
-		.isLowercase()
-		.withMessage('LastName must be lowercase')
-		.isLength({ min: 3 })
-		.withMessage('LastName must be at lease 3 characters long'),
+		.withMessage('Fullname must be at lease 3 characters long'),
 	body('password')
 		.trim()
 		.notEmpty()
@@ -33,8 +23,8 @@ const userRegisterValidator = [
 ];
 
 const userLoginValidator = [
-	body('email').trim().notEmpty().isEmail().withMessage('Email is required'),
-	// body('phone').trim().notEmpty().withMessage('Phone is invalid'),
+	// body('email').trim().notEmpty().isEmail().withMessage('Email is required'),
+	body('phone').trim().notEmpty().withMessage('Phone is invalid'),
 	// body('username').optional(),
 	body('password').notEmpty().withMessage('Password is required'),
 ];

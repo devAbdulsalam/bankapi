@@ -7,13 +7,13 @@ const AccountSchema = new mongoose.Schema(
 			ref: 'User',
 			required: true,
 		},
-		phone: {
-			type: String,
-			min: 8,
-		},
 		balance: {
-			type: Number,
+			type: String,
 			default: 100,
+		},
+		name: {
+			type: Number,
+			required: true,
 		},
 		totalSavings: { type: Number, default: 0 },
 		savingsPercentage: { type: Number, required: true },
@@ -24,12 +24,19 @@ const AccountSchema = new mongoose.Schema(
 		rank: { type: String, default: 'Bronze' },
 		pin: {
 			type: String,
-			default: '1234',
 			min: 4,
 		},
 		isDefaultPin: {
 			type: Boolean,
 			default: true,
+		},
+		savePercentage: {
+			type: Number,
+			default: 0,
+		},
+		isAutosavePercentage: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	{ timestamps: true }

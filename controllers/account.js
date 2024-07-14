@@ -18,17 +18,26 @@ import {
 } from '../utils/getPaginatedPayload.js';
 import { sendNotification } from './notification.js';
 
-export const getClient = async (req, res) => {
+export const getDashboard = async (req, res) => {
 	try {
-		const user = req.user;
-		let account;
-		account = await Account.findOne({ userId: user._id });
-		if (!account) {
-			account = await Account.create({ userId: user._id, balance: 100 });
+		const userId = req.user._id;
+
+		let accounts = await Account.find({ userId }).select('-pin');
+
+		if (accounts.length === 0) {
+			const hashedPassword = await hash('1234');
+			await Account.create({
+				userId,
+				balance: 1000,
+				savingsPercentage: 0,
+				name: 'savings',
+				pin: hashedPassword,
+			});
+			accounts = await Account.find({ userId }).select('-pin');
 		}
-		const transactions = await Transaction.find({ userId: user._id });
+		const transactions = await Transaction.find({ userId });
 		const data = {
-			account,
+			accounts,
 			transactions,
 		};
 		res.status(200).json(data);

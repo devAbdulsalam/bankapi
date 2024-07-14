@@ -6,7 +6,7 @@ const SavingGoalSchema = new mongoose.Schema({
 		ref: 'User',
 		required: true,
 	},
-	goalAmount: { type: Number, required: true },
+	goalAmount: { type: Number, required: true, default: 0 },
 	currentAmount: { type: Number, default: 0 },
 });
 

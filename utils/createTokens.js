@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { ApiError } from './ApiError.js';
 dotenv.config();
 
 const generateAccessToken = function (user) {

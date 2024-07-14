@@ -80,7 +80,7 @@ app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/admins', adminRoutes);
 app.use('/api/v1/client', clientRoutes);
 app.use('/api/v1/general', generalRoutes);
-app.use('/api/v1/account', accountRoutes);
+app.use('/api/v1/accounts', accountRoutes);
 app.use('/api/v1/payment', paymentRoutes);
 app.use('/api/v1/services', serviceRoutes);
 // * API DOCS
@@ -99,6 +99,7 @@ app.use(
 // common error handling middleware
 app.use(errorHandler);
 
+// app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 /* MONGOOSE SETUP */
 mongoose
 	.connect(process.env.MONGO_URL, {
@@ -109,3 +110,4 @@ mongoose
 		app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 	})
 	.catch((error) => console.log(`${error} did not connect`));
+

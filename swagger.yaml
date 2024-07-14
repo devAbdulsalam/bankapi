@@ -4,13 +4,14 @@ info:
   description: >-
     # A simple payment app api
   version: 1.0.0
-  contact: { email: ammuftau74@gmail.com, whatapp: +2340935095173 }
+  contact: { email: ammuftau74@gmail.com }
 servers:
-  - url: https://jigipay.onrender.com/api/v1
-    description: This is the original api URL
-    schemes: [https, http]
+  # - url: https://jigipay.onrender.com/api/v1
+  #   description: This is the original api URL
+  #   schemes: [https, http]
   - url: http://localhost:8080/api/v1
     description: THis is my local Server
+    schemes: [https, http]
 paths:
   /users/register:
     post:

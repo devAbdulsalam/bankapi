@@ -3,26 +3,15 @@ import bcrypt from 'bcryptjs';
 // import validator from 'validator';
 const UserSchema = new mongoose.Schema(
 	{
-		firstName: {
+		fullname: {
 			type: String,
 			required: true,
-			min: 2,
-			max: 100,
-		},
-		lastName: {
-			type: String,
-			min: 2,
-			max: 100,
-		},
-		username: {
-			type: String,
 			min: 2,
 			max: 100,
 		},
 		email: {
 			type: String,
 			required: true,
-			max: 50,
 			unique: true,
 		},
 		password: {
@@ -32,7 +21,8 @@ const UserSchema = new mongoose.Schema(
 		},
 		phone: {
 			type: String,
-			min: 8,
+			min: 10,
+			unique: true,
 		},
 		avatar: {
 			public_id: {
@@ -81,12 +71,12 @@ UserSchema.statics.signup = async function (name, email, password) {
 };
 
 // static login method
-UserSchema.statics.login = async function (email, password) {
-	if (!email && !password) {
+UserSchema.statics.login = async function (phone, password) {
+	if (!phone && !password) {
 		throw Error('All fields must be filled');
 	}
 
-	let user = await this.findOne({ email });
+	let user = await this.findOne({ phone });
 
 	if (!user) {
 		throw Error('email or password is incorrect!!');

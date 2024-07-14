@@ -13,7 +13,7 @@ import {
 	userResetForgottenPasswordValidator,
 } from '../validators/user.js';
 import {
-	signinUser,
+	registerUser,
 	loginUser,
 	getUser,
 	getUsers,
@@ -40,7 +40,7 @@ import {
 router.post('/login', userLoginValidator, validate, loginUser);
 
 // //new user
-router.post('/register', userRegisterValidator, validate, signinUser);
+router.post('/register', userRegisterValidator, validate, registerUser);
 
 // //forget Password link to mail
 router.post(

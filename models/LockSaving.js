@@ -5,10 +5,9 @@ const LockedSavingSchema = new mongoose.Schema({
 		ref: 'User',
 		required: true,
 	},
-	amount: { type: Number, required: true },
+	amount: { type: Number, required: true, default: 0 },
 	lockInPeriod: {
 		type: String,
-		enum: ['monthly', 'quarterly', 'sixMonths', 'yearly'],
 		required: true,
 	},
 	startDate: { type: Date, default: Date.now },

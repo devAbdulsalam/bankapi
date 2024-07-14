@@ -129,24 +129,27 @@ export const loginAdmin = async (req, res) => {
 			.json({ error: error.message || 'Internal server error.' });
 	}
 };
-
 // // signinUser
-export const signinUser = async (req, res) => {
-	const { firstName, lastName, email, password } = req.body;
+export const registerUser = async (req, res) => {
+	const { fullname, email, phone, password } = req.body;
 	try {
-		const existingUser = await User.findOne({ email });
+		const existingUser = await User.findOne({ phone });
+		const existingEmail = await User.findOne({ email });
 
 		// To handle the 409 status code, typically indicating a conflict, you might want to implement it in scenarios where there's a conflict with the current state of the resource.
 		// For example, if you're trying to create a new user with an email or username that already exists, it would result in a conflict.
 		if (existingUser) {
-			return res.status(409).json({ error: 'Email Address already Exists' });
+			return res.status(409).json({ error: 'Phone number already exists' });
+		}
+		if (existingEmail) {
+			return res.status(409).json({ error: 'Email address already exists' });
 		}
 
 		const hashedPassword = await hash(password);
 
 		const user = await User.create({
-			firstName,
-			lastName,
+			fullname,
+			phone,
 			email,
 			password: hashedPassword,
 		});

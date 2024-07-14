@@ -9,6 +9,7 @@ const SavingSchema = new mongoose.Schema(
 		amount: {
 			type: Number,
 			require: true,
+			default: 0,
 		},
 		name: String,
 		balance: Number,
