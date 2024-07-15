@@ -8,11 +8,11 @@ const AccountSchema = new mongoose.Schema(
 			required: true,
 		},
 		balance: {
-			type: String,
+			type: Number,
 			default: 100,
 		},
 		name: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 		totalSavings: { type: Number, default: 0 },
@@ -30,7 +30,7 @@ const AccountSchema = new mongoose.Schema(
 			type: Boolean,
 			default: true,
 		},
-		savePercentage: {
+		savingsPercentage: {
 			type: Number,
 			default: 0,
 		},

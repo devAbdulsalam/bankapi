@@ -8,7 +8,6 @@ const SavingSchema = new mongoose.Schema(
 		},
 		amount: {
 			type: Number,
-			require: true,
 			default: 0,
 		},
 		name: String,
@@ -20,10 +19,10 @@ const SavingSchema = new mongoose.Schema(
 		startDate: {
 			type: Date,
 			require: true,
+			default: Date.now(),
 		},
 		endDate: {
 			type: Date,
-			require: true,
 		},
 	},
 	{ timestamps: true }

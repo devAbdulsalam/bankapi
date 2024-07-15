@@ -56,7 +56,9 @@ export const loginUser = async (req, res) => {
 		}
 
 		const { accessToken, refreshToken } = await createTokens(user._id);
-		const newUser = await User.findOne({ _id: user._id }).select('-password');
+		const newUser = await User.findOne({ _id: user._id }).select(
+			'-password -refreshToken'
+		);
 
 		const options = {
 			httpOnly: true,

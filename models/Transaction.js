@@ -16,7 +16,7 @@ const TransactionSchema = new mongoose.Schema(
 			required: true,
 		},
 		balance: Number,
-		account: {
+		accountNumber: {
 			type: Number,
 			required: true,
 		},
@@ -28,11 +28,13 @@ const TransactionSchema = new mongoose.Schema(
 			type: String,
 			default: 'savapp',
 		},
+		icon: {
+			type: String,
+			default: 'savapp',
+		},
 		type: {
 			required: true,
 			type: String,
-			enum: ['CREDIT', 'DEBIT'],
-			default: 'CREDIT',
 		},
 		status: {
 			required: true,
