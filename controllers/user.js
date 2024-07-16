@@ -36,23 +36,23 @@ export const getUser = async (req, res) => {
 // // login user
 
 export const loginUser = async (req, res) => {
-	const { email, password } = req.body;
+	const { phone, password } = req.body;
 
 	try {
-		if (!email || !password) {
+		if (!phone || !password) {
 			return res
 				.status(400)
 				.json({ message: 'Email and password are required fields.' });
 		}
 
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ phone });
 		if (!user) {
-			return res.status(401).json({ message: 'Invalid email or password.' });
+			return res.status(401).json({ message: 'Invalid phone or password.' });
 		}
 
 		const match = await bcrypt.compare(password, user.password);
 		if (!match) {
-			return res.status(401).json({ message: 'Invalid email or password.' });
+			return res.status(401).json({ message: 'Incorrect phone or password.' });
 		}
 
 		const { accessToken, refreshToken } = await createTokens(user._id);
