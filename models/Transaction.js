@@ -18,11 +18,9 @@ const TransactionSchema = new mongoose.Schema(
 		balance: Number,
 		accountNumber: {
 			type: Number,
-			required: true,
 		},
 		accountName: {
 			type: String,
-			required: true,
 		},
 		bank: {
 			type: String,

@@ -145,81 +145,6 @@ export const transfer = async (req, res) => {
 	}
 };
 
-export const Transfer2 = async (req, res) => {
-	try {
-		const userId = req.user;
-		const {
-			accountName,
-			accountNumber,
-			bank,
-			bankImage,
-			amount,
-			remark,
-			pin,
-			isSavePercentage,
-		} = req.body;
-
-		// const user = await User.findById(userId);
-		const userAccount = await Account.findOne({ userId, name: 'savings' });
-		if (!userAccount) {
-			return res.status(404).send('User not found');
-		}
-		const match = await bcrypt.compare(pin, userAccount.pin);
-		if (!match) {
-			return res.status(401).json({ message: 'Incorrect transaction pin' });
-		}
-		if (isSavePercentage) {
-			const savings = (userAccount.savingsPercentage / 100) * amount;
-			const spending = amount + savings;
-
-			// Ensure user has enough balance to cover the spending
-			if (userAccount.balance < spending) {
-				return res.status(400).send('Insufficient balance');
-			}
-			const savingAccount = await Saving.findOne({ userId });
-			if (!savingAccount) {
-				await Saving.create({ balance: savings, startDate: new Date.now() });
-				userAccount.balance -= spending;
-				await userAccount.save();
-			} else {
-				userAccount.balance -= spending;
-				savingAccount.balance += savings;
-				await userAccount.save();
-				await savingAccount.save();
-			}
-
-			// Record transactions
-			await Transaction.create({ type: 'spending', amount: spending });
-			await Transaction.create({
-				type: 'savings',
-				amount: savings,
-				remark,
-				accountName,
-				accountNumber,
-				bank,
-				icon: bankImage,
-			});
-
-			return res.status(200).json({ account: userAccount });
-		} else {
-			// Ensure user has enough balance to cover the spending
-			if (userAccount.balance < amount) {
-				return res.status(400).send('Insufficient balance');
-			}
-
-			userAccount.balance -= amount;
-			await userAccount.save();
-
-			// Record transactions
-			await Transaction.create({ type: 'spending', amount: spending });
-
-			return res.status(200).json({ account: userAccount });
-		}
-	} catch (err) {
-		res.status(400).send(err);
-	}
-};
-
 // Add funds to user account
 export const addFund = async (req, res) => {
 	try {
@@ -234,7 +159,7 @@ export const addFund = async (req, res) => {
 		account.balance += amount;
 
 		// Record transaction
-		await Transaction.create({ type: 'addFunds', amount });
+		await Transaction.create({ type: 'addFunds', amount, status: 'SUCCESS' });
 
 		await account.save();
 
@@ -244,6 +169,51 @@ export const addFund = async (req, res) => {
 	}
 };
 
+export const changeTransactionPin = async (req, res) => {
+	try {
+		const userId = req.user;
+		const { pin } = req.body;
+		if (!pin || pin.length < 4) {
+			return res.status(400).send('Enter a valid pin');
+		}
+
+		const account = await Account.findOne({ userId });
+		if (!account) {
+			return res.status(404).send('Account not found');
+		}
+
+		const hashedPassword = await hash(pin);
+		account.pin = hashedPassword;
+		await account.save();
+		res.status(200).json(account);
+	} catch (err) {
+		res.status(400).send(err);
+	}
+};
+export const updateTransactionPin = async (req, res) => {
+	try {
+		const userId = req.user;
+		const { newPin, oldPin } = req.body;
+		if (!newPin || newPin.length < 4) {
+			return res.status(400).send('Enter a valid pin');
+		}
+
+		const account = await Account.findOne(userId);
+		if (!account) {
+			return res.status(404).send('Account not found');
+		}
+		const match = await bcrypt.compare(oldPin, account.pin);
+		if (!match) {
+			return res.status(401).json({ message: 'Incorrect transaction pin' });
+		}
+		const hashedPassword = await hash(newPin);
+		account.pin = hashedPassword;
+		await account.save();
+		res.status(200).json(account);
+	} catch (err) {
+		res.status(400).send(err);
+	}
+};
 export const dailySpending = async (req, res) => {};
 
 // router.post('/lockSavings/:userId', async (req, res) => {

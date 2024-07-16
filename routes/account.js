@@ -4,14 +4,18 @@ import { requireAuth, pinVerification } from '../middleware/requireAuth.js';
 import {
 	createAccount,
 	getDashboard,
-	transfer,
+	transfer,addFund,
+	changeTransactionPin,
+	updateTransactionPin,
 } from '../controllers/account.js';
 
 // // get user
 router.get('/', requireAuth, getDashboard);
 router.post('/create-account', requireAuth, createAccount);
-router.post('/transfer', requireAuth, transfer);
-// router.get('/get-payment-option', getPaymentOption);
+router.post('/transfer', requireAuth, pinVerification, transfer);
+router.post('/change-pin', requireAuth, changeTransactionPin);
+router.post('/update-pin', requireAuth, updateTransactionPin);
+router.post('/add-fund', addFund);
 // router.post('/create-payment-option', createPaymentOption);
 // router.patch('/update-payment-option', updatePaymentOption);
 // router.delete('/', updatePaymentOption);
