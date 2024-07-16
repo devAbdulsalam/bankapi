@@ -151,15 +151,20 @@ export const addFund = async (req, res) => {
 		const userId = req.user;
 		const { amount } = req.body;
 
-		const account = await Account.findOne(userId);
+		const account = await Account.findOne({ userId });
 		if (!account) {
 			return res.status(404).send('account not found');
 		}
 
-		account.balance += amount;
-
 		// Record transaction
-		await Transaction.create({ type: 'addFunds', amount, status: 'SUCCESS' });
+		await Transaction.create({
+			userId,
+			type: 'addFunds',
+			amount,
+			status: 'SUCCESS',
+		});
+
+		account.balance += amount;
 
 		await account.save();
 

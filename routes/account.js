@@ -15,7 +15,7 @@ router.post('/create-account', requireAuth, createAccount);
 router.post('/transfer', requireAuth, pinVerification, transfer);
 router.post('/change-pin', requireAuth, changeTransactionPin);
 router.post('/update-pin', requireAuth, updateTransactionPin);
-router.post('/add-fund', addFund);
+router.post('/add-fund', requireAuth, addFund);
 // router.post('/create-payment-option', createPaymentOption);
 // router.patch('/update-payment-option', updatePaymentOption);
 // router.delete('/', updatePaymentOption);
